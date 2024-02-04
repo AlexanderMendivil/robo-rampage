@@ -1,9 +1,9 @@
 extends CharacterBody3D
 
 
-const SPEED = 5.0
-const JUMP_VELOCITY = 4.5
-
+const SPEED := 5.0
+@export var jump_height := 1.0
+@export var fall_multiplier := 2.0
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var mouse_motion := Vector2.ZERO
@@ -15,21 +15,25 @@ func _ready():
 func _physics_process(delta):
 	handle_camera_rotation()
 	if not is_on_floor():
-		velocity.y -= gravity * delta
-
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
-
-	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
-	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	if direction:
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
+		if velocity.y >= 0:
+			velocity.y -= gravity * delta
+		else:
+			velocity.y -= gravity * delta * fall_multiplier
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
+		var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
+		var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+		if direction:
+			velocity.x = direction.x * SPEED
+			velocity.z = direction.z * SPEED
+		else:
+			velocity.x = move_toward(velocity.x, 0, SPEED)
+			velocity.z = move_toward(velocity.z, 0, SPEED)
 
 	move_and_slide()
+		
+	if Input.is_action_just_pressed("jump") and is_on_floor():
+		velocity.y = sqrt(jump_height * gravity * 2)
+
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion && Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
