@@ -9,6 +9,7 @@ extends Node3D
 @export var recoil: float = 0.05
 @export var wepaon_damage: float = 0.0
 @export var weapon_mesh: Node3D
+@export var sparks: PackedScene
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -28,3 +29,6 @@ func shoot() -> void:
 	var collider: Object = ray_cast_3d.get_collider()
 	if collider is Enemy:
 		collider.hitpoint -= wepaon_damage
+	var spark = sparks.instantiate()
+	add_child(spark)
+	spark.global_position = ray_cast_3d.get_collision_point()
