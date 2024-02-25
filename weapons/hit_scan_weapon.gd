@@ -6,6 +6,7 @@ extends Node3D
 
 @export var fire_rate: float = 14.0
 @export var recoil: float = 0.05
+@export var wepaon_damage: float = 0.0
 @export var weapon_mesh: Node3D
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -23,4 +24,6 @@ func _process(delta):
 func shoot() -> void:
 	cooldown_timer.start(1.0 / fire_rate)
 	weapon_mesh.position.z += recoil
-	print(ray_cast_3d.get_collider())
+	var collider: Object = ray_cast_3d.get_collider()
+	if collider is Enemy:
+		collider.hitpoint -= wepaon_damage

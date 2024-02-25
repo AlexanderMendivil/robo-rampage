@@ -1,14 +1,21 @@
 extends CharacterBody3D
-
+class_name Player
 
 const SPEED := 5.0
-@export var jump_height := 1.0
-@export var fall_multiplier := 2.0
+@export var jump_height: float = 1.0
+@export var fall_multiplier: float = 2.0
+@export var max_hitpoints: float = 100.0
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
-var mouse_motion := Vector2.ZERO
 @onready var camera_pivot = $CameraPivot
 
+var mouse_motion := Vector2.ZERO
+var hitpoint:float = max_hitpoints:
+	set(value):
+		hitpoint = value
+		if hitpoint <= 0:
+			get_tree().quit()
+		
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
