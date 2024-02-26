@@ -23,9 +23,13 @@ shape = SubResource("CapsuleShape3D_sf48n")
 [node name="SmoothCamera" type="Camera3D" parent="CameraPivot" groups=["CAMERA"]]
 transform = Transform3D(1, 0, 0, 0, 0.997989, 0.0633828, 0, -0.0633828, 0.997989, 0, 0.5, 0)
 top_level = true
+cull_mask = 1048573
 script = ExtResource("2_dw4v6")
 
 [node name="SMG" parent="CameraPivot/SmoothCamera" instance=ExtResource("3_msyvl")]
+
+[node name="RemoteTransform3D" type="RemoteTransform3D" parent="CameraPivot/SmoothCamera"]
+remote_path = NodePath("../../../SubViewportContainer/SubViewport/WeaponCamera")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 anchors_preset = 15
@@ -37,3 +41,22 @@ grow_vertical = 2
 [node name="Crosshair" type="Control" parent="CenterContainer"]
 layout_mode = 2
 script = ExtResource("3_74rnx")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="WeaponCamera" type="Camera3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.997989, 0.0633828, 0, -0.0633828, 0.997989, 0, 0.5, 0)
+cull_mask = 2
+fov = 40.0
