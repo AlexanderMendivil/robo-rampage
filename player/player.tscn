@@ -20,7 +20,7 @@ shape = SubResource("CapsuleShape3D_sf48n")
 
 [node name="CameraPivot" type="Node3D" parent="."]
 
-[node name="SmoothCamera" type="Camera3D" parent="CameraPivot"]
+[node name="SmoothCamera" type="Camera3D" parent="CameraPivot" groups=["CAMERA"]]
 transform = Transform3D(1, 0, 0, 0, 0.997989, 0.0633828, 0, -0.0633828, 0.997989, 0, 0.5, 0)
 top_level = true
 script = ExtResource("2_dw4v6")

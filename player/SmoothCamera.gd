@@ -1,5 +1,5 @@
 extends Camera3D
-
+class_name PlayerCamera
 @export var speed := 44.0
 
 

@@ -10,9 +10,10 @@ extends Node3D
 @export var wepaon_damage: float = 0.0
 @export var weapon_mesh: Node3D
 @export var sparks: PackedScene
-# Called when the node enters the scene tree for the first time.
+
+var player_camera: Camera3D
 func _ready():
-	pass # Replace with function body.
+	player_camera = get_tree().get_first_node_in_group("CAMERA")
 
 
 func _process(delta):
@@ -26,6 +27,8 @@ func shoot() -> void:
 	muzzle_flash.restart()
 	cooldown_timer.start(1.0 / fire_rate)
 	weapon_mesh.position.z += recoil
+	player_camera.rotation.x += recoil
+	player_camera.rotation.y += (recoil * 0.1)
 	var collider: Object = ray_cast_3d.get_collider()
 	if collider is Enemy:
 		collider.hitpoint -= wepaon_damage
