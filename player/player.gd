@@ -8,10 +8,14 @@ const SPEED := 5.0
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var camera_pivot = $CameraPivot
+@onready var animation_player = $AnimationPlayer
 
 var mouse_motion := Vector2.ZERO
 var hitpoint:float = max_hitpoints:
 	set(value):
+		if value < hitpoint:
+			animation_player.stop(false)
+			animation_player.play("TakeDamage")
 		hitpoint = value
 		if hitpoint <= 0:
 			get_tree().quit()

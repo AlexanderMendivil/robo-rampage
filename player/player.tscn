@@ -1,13 +1,74 @@
-[gd_scene load_steps=7 format=3 uid="uid://u7ytgrl0kr0s"]
+[gd_scene load_steps=11 format=3 uid="uid://u7ytgrl0kr0s"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_8pwgk"]
 [ext_resource type="Script" path="res://player/SmoothCamera.gd" id="2_dw4v6"]
 [ext_resource type="Script" path="res://player/Crosshair.gd" id="3_74rnx"]
 [ext_resource type="PackedScene" uid="uid://ct0qy22h65r4v" path="res://weapons/smg.tscn" id="3_msyvl"]
+[ext_resource type="Texture2D" uid="uid://don56hothsi0o" path="res://player/damage.png" id="5_qly6h"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_gn0ah"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sf48n"]
+
+[sub_resource type="Animation" id="Animation_k1mkt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DamageTexture:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DamageTexture:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_lve2e"]
+resource_name = "TakeDamage"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DamageTexture:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DamageTexture:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.5, 1.5)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_plffk"]
+_data = {
+"RESET": SubResource("Animation_k1mkt"),
+"TakeDamage": SubResource("Animation_lve2e")
+}
 
 [node name="Player" type="CharacterBody3D" groups=["PLAYER"]]
 script = ExtResource("1_8pwgk")
@@ -60,3 +121,18 @@ render_target_update_mode = 4
 transform = Transform3D(1, 0, 0, 0, 0.997989, 0.0633828, 0, -0.0633828, 0.997989, 0, 0.5, 0)
 cull_mask = 2
 fov = 40.0
+
+[node name="DamageTexture" type="TextureRect" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(576, 324)
+texture = ExtResource("5_qly6h")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_plffk")
+}
