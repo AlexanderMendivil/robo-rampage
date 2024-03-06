@@ -1,0 +1,70 @@
+[gd_scene load_steps=5 format=3 uid="uid://tpuivugrx6ar"]
+
+[ext_resource type="FontFile" uid="uid://dioms5cn7v6ij" path="res://Assets/Fonts/Orbitron/static/Orbitron-Regular.ttf" id="1_r5fth"]
+
+[sub_resource type="Theme" id="Theme_sncxc"]
+default_font = ExtResource("1_r5fth")
+default_font_size = 64
+
+[sub_resource type="GDScript" id="GDScript_2gj0w"]
+script/source = "extends Control
+
+func _on_restart_button_pressed():
+	get_tree().paused = false
+	get_tree().reload_current_scene()
+
+
+func _on_quit_button_pressed():
+	get_tree().quit()
+
+func game_over():
+	visible = true
+	get_tree().paused = true
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	
+
+"
+
+[sub_resource type="LabelSettings" id="LabelSettings_j0fse"]
+font_size = 96
+
+[node name="GameOverMenu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_sncxc")
+script = SubResource("GDScript_2gj0w")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(512, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "You Dead"
+label_settings = SubResource("LabelSettings_j0fse")
+horizontal_alignment = 1
+
+[node name="RestartButton" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "AGAIN"
+
+[node name="QuitButton" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "I'M DONE
+"
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://u7ytgrl0kr0s"]
+[gd_scene load_steps=12 format=3 uid="uid://u7ytgrl0kr0s"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_8pwgk"]
 [ext_resource type="Script" path="res://player/SmoothCamera.gd" id="2_dw4v6"]
 [ext_resource type="Script" path="res://player/Crosshair.gd" id="3_74rnx"]
 [ext_resource type="PackedScene" uid="uid://ct0qy22h65r4v" path="res://weapons/smg.tscn" id="3_msyvl"]
 [ext_resource type="Texture2D" uid="uid://don56hothsi0o" path="res://player/damage.png" id="5_qly6h"]
+[ext_resource type="PackedScene" uid="uid://tpuivugrx6ar" path="res://player/game_over_menu.tscn" id="6_18v4w"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_gn0ah"]
 
@@ -136,3 +137,6 @@ texture = ExtResource("5_qly6h")
 libraries = {
 "": SubResource("AnimationLibrary_plffk")
 }
+
+[node name="GameOverMenu" parent="." instance=ExtResource("6_18v4w")]
+visible = false

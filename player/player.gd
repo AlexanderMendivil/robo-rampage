@@ -9,6 +9,7 @@ const SPEED := 5.0
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var camera_pivot = $CameraPivot
 @onready var animation_player = $AnimationPlayer
+@onready var game_over_menu: Control = $GameOverMenu
 
 var mouse_motion := Vector2.ZERO
 var hitpoint:float = max_hitpoints:
@@ -18,7 +19,9 @@ var hitpoint:float = max_hitpoints:
 			animation_player.play("TakeDamage")
 		hitpoint = value
 		if hitpoint <= 0:
-			get_tree().quit()
+			print(game_over_menu)
+			game_over_menu.game_over()
+		
 		
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
