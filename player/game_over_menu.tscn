@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://tpuivugrx6ar"]
+[gd_scene load_steps=8 format=3 uid="uid://tpuivugrx6ar"]
 
 [ext_resource type="FontFile" uid="uid://dioms5cn7v6ij" path="res://Assets/Fonts/Orbitron/static/Orbitron-Regular.ttf" id="1_r5fth"]
+[ext_resource type="Shader" uid="uid://cg4d7kgecieor" path="res://player/game_over_menu.tres" id="2_724d0"]
 
 [sub_resource type="Theme" id="Theme_sncxc"]
 default_font = ExtResource("1_r5fth")
@@ -25,6 +26,11 @@ func game_over():
 
 "
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ylajb"]
+shader = ExtResource("2_724d0")
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_2dpvu"]
+
 [sub_resource type="LabelSettings" id="LabelSettings_j0fse"]
 font_size = 96
 
@@ -38,6 +44,16 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_sncxc")
 script = SubResource("GDScript_2gj0w")
+
+[node name="BackgroundBlur" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_ylajb")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("PlaceholderTexture2D_2dpvu")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1
