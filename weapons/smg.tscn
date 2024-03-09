@@ -29,6 +29,7 @@ size = Vector3(0.1, 0.1, 0.1)
 [node name="SMG" node_paths=PackedStringArray("weapon_mesh") instance=ExtResource("1_mhn5e")]
 wepaon_damage = 15.0
 weapon_mesh = NodePath("SMG")
+automatic = true
 
 [node name="SMG" parent="." index="1" instance=ExtResource("2_5r4b5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, -0.2, -1)
