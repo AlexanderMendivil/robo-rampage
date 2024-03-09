@@ -26,7 +26,7 @@ scale_curve = SubResource("CurveTexture_gydko")
 [sub_resource type="BoxMesh" id="BoxMesh_krh83"]
 size = Vector3(0.1, 0.1, 0.1)
 
-[node name="SMG" node_paths=PackedStringArray("weapon_mesh") instance=ExtResource("1_mhn5e")]
+[node name="SMG" node_paths=PackedStringArray("weapon_mesh") groups=["WEAPON"] instance=ExtResource("1_mhn5e")]
 wepaon_damage = 15.0
 weapon_mesh = NodePath("SMG")
 automatic = true

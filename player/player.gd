@@ -56,6 +56,17 @@ func _input(event: InputEvent) -> void:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 func handle_camera_rotation() -> void:
+	if mouse_motion.x != 0:
+		for i in get_children():
+			if i.name == "CameraPivot":
+				print("here")
+				var camera = i.get_children()
+				for j in camera[0].get_children():
+					if j.is_in_group("WEAPON"):
+						j.rotate_z(mouse_motion.x) 
+						j.rotation_degrees.z = clamp(j.rotation_degrees.z, -25, 25)
+						if mouse_motion.x == 0:
+							j.rotation_degrees.z = 0
 	rotate_y(mouse_motion.x)
 	camera_pivot.rotate_x(mouse_motion.y)
 	camera_pivot.rotation_degrees.x = clamp(camera_pivot.rotation_degrees.x, -90, 90)

@@ -26,7 +26,7 @@ scale_curve = SubResource("CurveTexture_gydko")
 [sub_resource type="BoxMesh" id="BoxMesh_krh83"]
 size = Vector3(0.1, 0.1, 0.1)
 
-[node name="Rifle" node_paths=PackedStringArray("weapon_mesh") instance=ExtResource("1_m55vr")]
+[node name="Rifle" node_paths=PackedStringArray("weapon_mesh") groups=["WEAPON"] instance=ExtResource("1_m55vr")]
 fire_rate = 8.0
 recoil = 0.3
 wepaon_damage = 70.0
