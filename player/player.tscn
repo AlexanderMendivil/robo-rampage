@@ -1,10 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://u7ytgrl0kr0s"]
+[gd_scene load_steps=14 format=3 uid="uid://u7ytgrl0kr0s"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_8pwgk"]
 [ext_resource type="Script" path="res://player/SmoothCamera.gd" id="2_dw4v6"]
 [ext_resource type="Script" path="res://player/Crosshair.gd" id="3_74rnx"]
 [ext_resource type="PackedScene" uid="uid://gcfu8ktuloh7" path="res://weapons/rifle.tscn" id="3_dseov"]
+[ext_resource type="Script" path="res://player/WeaponHandler.gd" id="4_pexss"]
 [ext_resource type="Texture2D" uid="uid://don56hothsi0o" path="res://player/damage.png" id="5_qly6h"]
+[ext_resource type="PackedScene" uid="uid://ct0qy22h65r4v" path="res://weapons/smg.tscn" id="5_wdujn"]
 [ext_resource type="PackedScene" uid="uid://tpuivugrx6ar" path="res://player/game_over_menu.tscn" id="6_18v4w"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_gn0ah"]
@@ -91,8 +93,6 @@ script = ExtResource("2_dw4v6")
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="CameraPivot/SmoothCamera"]
 remote_path = NodePath("../../../SubViewportContainer/SubViewport/WeaponCamera")
 
-[node name="Rifle" parent="CameraPivot/SmoothCamera" instance=ExtResource("3_dseov")]
-
 [node name="CenterContainer" type="CenterContainer" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
@@ -122,6 +122,15 @@ render_target_update_mode = 4
 transform = Transform3D(1, 0, 0, 0, 0.997989, 0.0633828, 0, -0.0633828, 0.997989, 0, 0.5, 0)
 cull_mask = 2
 fov = 40.0
+
+[node name="WeaponHandler" type="Node3D" parent="SubViewportContainer/SubViewport/WeaponCamera" node_paths=PackedStringArray("weapon_1", "weapon_2")]
+script = ExtResource("4_pexss")
+weapon_1 = NodePath("SMG")
+weapon_2 = NodePath("Rifle")
+
+[node name="Rifle" parent="SubViewportContainer/SubViewport/WeaponCamera/WeaponHandler" instance=ExtResource("3_dseov")]
+
+[node name="SMG" parent="SubViewportContainer/SubViewport/WeaponCamera/WeaponHandler" instance=ExtResource("5_wdujn")]
 
 [node name="DamageTexture" type="TextureRect" parent="."]
 visible = false
