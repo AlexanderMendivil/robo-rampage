@@ -68,9 +68,6 @@ func handle_camera_rotation() -> void:
 						j.rotate_z(mouse_motion.x) 
 						j.rotation_degrees.z = clamp(j.rotation_degrees.z, -15, 15)
 
-	print(mouse_motion.x)
-	print(weaponReference)
-	print(mouse_motion.x)
 	if mouse_motion.x == 0 && weaponReference != null:
 		weaponReference.rotation.z = mouse_motion.x		
 	rotate_y(mouse_motion.x)
