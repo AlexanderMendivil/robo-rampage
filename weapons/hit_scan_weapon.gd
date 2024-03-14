@@ -11,6 +11,8 @@ extends Node3D
 @export var weapon_mesh: Node3D
 @export var sparks: PackedScene
 @export var automatic: bool
+@export var ammo_handler: AmmoHandler
+@export var ammo_type: AmmoHandler.ammo_type
 
 var player_camera: Camera3D
 func _ready():
@@ -31,14 +33,16 @@ func _process(delta):
 
 
 func shoot() -> void:
-	muzzle_flash.restart()
-	cooldown_timer.start(1.0 / fire_rate)
-	weapon_mesh.position.z += recoil
-	player_camera.rotation.x += (recoil)
-	player_camera.rotation.y += (recoil * 0.1)
-	var collider: Object = ray_cast_3d.get_collider()
-	if collider is Enemy:
-		collider.hitpoint -= wepaon_damage
-	var spark = sparks.instantiate()
-	add_child(spark)
-	spark.global_position = ray_cast_3d.get_collision_point()
+	if ammo_handler.has_ammo(ammo_type):
+		ammo_handler.use_ammo(ammo_type)
+		muzzle_flash.restart()
+		cooldown_timer.start(1.0 / fire_rate)
+		weapon_mesh.position.z += recoil
+		player_camera.rotation.x += (recoil)
+		player_camera.rotation.y += (recoil * 0.1)
+		var collider: Object = ray_cast_3d.get_collider()
+		if collider is Enemy:
+			collider.hitpoint -= wepaon_damage
+		var spark = sparks.instantiate()
+		add_child(spark)
+		spark.global_position = ray_cast_3d.get_collision_point()
