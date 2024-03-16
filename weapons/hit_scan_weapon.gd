@@ -17,6 +17,7 @@ extends Node3D
 var player_camera: Camera3D
 func _ready():
 	player_camera = get_tree().get_first_node_in_group("CAMERA")
+	ammo_handler.update_ammo_label(ammo_type)
 
 
 func _process(delta):

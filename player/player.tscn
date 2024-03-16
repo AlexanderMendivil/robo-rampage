@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://u7ytgrl0kr0s"]
+[gd_scene load_steps=16 format=3 uid="uid://u7ytgrl0kr0s"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_8pwgk"]
 [ext_resource type="Script" path="res://player/SmoothCamera.gd" id="2_dw4v6"]
@@ -74,6 +74,9 @@ _data = {
 "TakeDamage": SubResource("Animation_lve2e")
 }
 
+[sub_resource type="LabelSettings" id="LabelSettings_334og"]
+font_size = 40
+
 [node name="Player" type="CharacterBody3D" groups=["PLAYER"]]
 script = ExtResource("1_8pwgk")
 
@@ -125,7 +128,7 @@ transform = Transform3D(1, 0, 0, 0, 0.997989, 0.0633828, 0, -0.0633828, 0.997989
 cull_mask = 2
 fov = 40.0
 
-[node name="WeaponHandler" type="Node3D" parent="SubViewportContainer/SubViewport/WeaponCamera" node_paths=PackedStringArray("weapon_1", "weapon_2")]
+[node name="WeaponHandler" type="Node3D" parent="SubViewportContainer/SubViewport/WeaponCamera" node_paths=PackedStringArray("weapon_1", "weapon_2") groups=["PLAYER"]]
 script = ExtResource("4_pexss")
 weapon_1 = NodePath("SMG")
 weapon_2 = NodePath("Rifle")
@@ -137,8 +140,9 @@ ammo_handler = NodePath("../../AmmoHandler")
 ammo_handler = NodePath("../../AmmoHandler")
 ammo_type = 1
 
-[node name="AmmoHandler" type="Node" parent="SubViewportContainer/SubViewport/WeaponCamera"]
+[node name="AmmoHandler" type="Node" parent="SubViewportContainer/SubViewport/WeaponCamera" node_paths=PackedStringArray("ammo_label")]
 script = ExtResource("7_exil8")
+ammo_label = NodePath("../../../../AmmoContainer/AmmoLabel")
 
 [node name="DamageTexture" type="TextureRect" parent="."]
 visible = false
@@ -158,3 +162,22 @@ libraries = {
 
 [node name="GameOverMenu" parent="." instance=ExtResource("6_18v4w")]
 visible = false
+
+[node name="AmmoContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="AmmoLabel" type="Label" parent="AmmoContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "999"
+label_settings = SubResource("LabelSettings_334og")
