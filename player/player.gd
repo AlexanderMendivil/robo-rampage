@@ -10,6 +10,7 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var camera_pivot = $CameraPivot
 @onready var animation_player = $AnimationPlayer
 @onready var game_over_menu: Control = $GameOverMenu
+@onready var ammo_handler: Node = %AmmoHandler
 
 var mouse_motion := Vector2.ZERO
 var weaponReference: Node3D

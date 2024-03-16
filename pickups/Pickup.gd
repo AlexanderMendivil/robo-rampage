@@ -9,6 +9,7 @@ func _ready():
 
 func _on_body_entered(body:Node3D):
 	if body.is_in_group("PLAYER"):
+		body.ammo_handler.add_ammo(ammo_type, ammo_amount)
 		queue_free()
 
 
