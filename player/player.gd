@@ -5,12 +5,20 @@ const SPEED := 5.0
 @export var jump_height: float = 1.0
 @export var fall_multiplier: float = 2.0
 @export var max_hitpoints: float = 100.0
+@export var aim_multiplier: float = 0.7
+
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var camera_pivot = $CameraPivot
 @onready var animation_player = $AnimationPlayer
 @onready var game_over_menu: Control = $GameOverMenu
+
 @onready var ammo_handler: Node = %AmmoHandler
+@onready var smooth_camera = %SmoothCamera
+@onready var weapon_camera = %WeaponCamera
+
+@onready var weapon_camera_fov = weapon_camera.fov
+@onready var smooth_camera_fov = smooth_camera.fov
 
 var mouse_motion := Vector2.ZERO
 var weaponReference: Node3D
@@ -28,6 +36,14 @@ var hitpoint:float = max_hitpoints:
 		
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+func _process(delta: float):
+	if Input.is_action_pressed('aim'):
+		smooth_camera.fov = lerp(smooth_camera.fov, smooth_camera_fov * aim_multiplier, delta * 20.0)
+		weapon_camera.fov = lerp(weapon_camera.fov, weapon_camera_fov * aim_multiplier, delta * 20.0)
+	else:
+		smooth_camera.fov = lerp(smooth_camera.fov, smooth_camera_fov, delta * 30.0)
+		weapon_camera.fov = lerp(weapon_camera.fov, weapon_camera_fov, delta * 30.0)
 
 func _physics_process(delta):
 	handle_camera_rotation()
@@ -55,22 +71,13 @@ func _physics_process(delta):
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion && Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		mouse_motion = -event.relative * 0.001
+
+		if Input.is_action_pressed("aim"):
+			mouse_motion *= aim_multiplier
 	if Input.is_action_just_pressed("ui_cancel"):
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
-func handle_camera_rotation() -> void:
-	# if mouse_motion.x != 0:
-	# 	for i in get_children():
-	# 		if i.name == "CameraPivot":
-	# 			var camera = i.get_children()
-	# 			for j in camera[0].get_children():
-	# 				if j.is_in_group("WEAPON"):
-	# 					weaponReference = j
-	# 					j.rotate_z(mouse_motion.x) 
-	# 					j.rotation_degrees.z = clamp(j.rotation_degrees.z, -15, 15)
-
-	# if mouse_motion.x == 0 && weaponReference != null:
-	# 	weaponReference.rotation.z = mouse_motion.x		
+func handle_camera_rotation() -> void:	
 	rotate_y(mouse_motion.x)
 	camera_pivot.rotate_x(mouse_motion.y)
 	camera_pivot.rotation_degrees.x = clamp(camera_pivot.rotation_degrees.x, -90, 90)

@@ -13,5 +13,5 @@ func _on_body_entered(body:Node3D):
 		queue_free()
 
 
-func _on_animation_player_animation_finished(anim_name):
+func _on_animation_player_animation_finished(_anim_name):
 	animation_player.play("glowing")
