@@ -40,12 +40,48 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -6.301
 flip_faces = true
 size = Vector3(2.40292, 2.5, 4.96621)
 
+[node name="Corridor2" type="CSGBox3D" parent="Room/CSGCombiner3D"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -18.811, -0.746324, -5.73556)
+flip_faces = true
+size = Vector3(2.03883, 2.5, 4.72373)
+
+[node name="Corridor3" type="CSGBox3D" parent="Room/CSGCombiner3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -12.3677, -0.746324, -11.1315)
+flip_faces = true
+size = Vector3(2.03883, 2.5, 4.72373)
+
+[node name="Corridor4" type="CSGBox3D" parent="Room/CSGCombiner3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 8.89008, -0.746324, -14.8001)
+flip_faces = true
+size = Vector3(2.85129, 2.5, 5.48309)
+
 [node name="Room2" type="CSGBox3D" parent="Room/CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.314, 2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.3222, 2, 0)
 material_override = ExtResource("1_tv3rq")
 use_collision = true
 flip_faces = true
-size = Vector3(11.4, 8, 6.927)
+size = Vector3(11.4026, 8, 6.927)
+
+[node name="Room3" type="CSGBox3D" parent="Room/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.6327, 2, -11.3815)
+material_override = ExtResource("1_tv3rq")
+use_collision = true
+flip_faces = true
+size = Vector3(8.20721, 8, 6.66103)
+
+[node name="Room4" type="CSGBox3D" parent="Room/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.91599, 2, -14.3793)
+material_override = ExtResource("1_tv3rq")
+use_collision = true
+flip_faces = true
+size = Vector3(17.1275, 8, 12.8049)
+
+[node name="Room5" type="CSGBox3D" parent="Room/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.6991, 2, -8.79014)
+material_override = ExtResource("1_tv3rq")
+use_collision = true
+flip_faces = true
+size = Vector3(6.62953, 8, 20.0387)
 
 [node name="Player" parent="." instance=ExtResource("2_d8wry")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.79429, 0.8869, 8.64719)
