@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dxdtfu5wlnhmj"]
+[gd_scene load_steps=14 format=3 uid="uid://dxdtfu5wlnhmj"]
 
 [ext_resource type="Script" path="res://enemy/enemy.gd" id="1_v2u0b"]
 [ext_resource type="PackedScene" uid="uid://bcaq6tn2lwsqe" path="res://enemy/Drone.glb" id="2_s3nka"]
@@ -73,6 +73,28 @@ _data = {
 "idle": SubResource("Animation_ajejh")
 }
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kgfii"]
+animation = &"Attack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_x6q5q"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_anrsm"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7us18"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3phmn"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_xdlbp"]
+states/Attack/node = SubResource("AnimationNodeAnimation_kgfii")
+states/Attack/position = Vector2(578, 100)
+states/idle/node = SubResource("AnimationNodeAnimation_x6q5q")
+states/idle/position = Vector2(318, 100)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_anrsm"), "idle", "Attack", SubResource("AnimationNodeStateMachineTransition_7us18"), "Attack", "idle", SubResource("AnimationNodeStateMachineTransition_3phmn")]
+
 [node name="Enemy" type="CharacterBody3D"]
 script = ExtResource("1_v2u0b")
 
@@ -90,3 +112,8 @@ libraries = {
 
 [node name="Drone" parent="." instance=ExtResource("2_s3nka")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_xdlbp")
+anim_player = NodePath("../AnimationPlayer")
+active = true

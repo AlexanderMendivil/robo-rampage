@@ -5,7 +5,8 @@ const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 
 @onready var navigation_agent_3d: NavigationAgent3D = $NavigationAgent3D
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var animation_tree: AnimationTree = $AnimationTree
+@onready var playback: AnimationNodeStateMachinePlayback = animation_tree["parameters/playback"]
 
 @export var attack_damage := 20
 @export var attack_range := 1.5
@@ -43,7 +44,7 @@ func _physics_process(delta):
 		provoked = true
 	
 	if provoked && distance <= attack_range:
-		animation_player.play("Attack")
+		playback.travel("Attack")
 		
 	if direction:
 		look_at_target(direction)
