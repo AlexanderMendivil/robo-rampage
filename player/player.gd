@@ -25,6 +25,7 @@ var weaponReference: Node3D
 
 var hitpoint:float = max_hitpoints:
 	set(value):
+		print(value)
 		if value < hitpoint:
 			animation_player.stop(false)
 			animation_player.play("TakeDamage")

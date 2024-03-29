@@ -95,7 +95,7 @@ states/idle/node = SubResource("AnimationNodeAnimation_x6q5q")
 states/idle/position = Vector2(318, 100)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_anrsm"), "idle", "Attack", SubResource("AnimationNodeStateMachineTransition_7us18"), "Attack", "idle", SubResource("AnimationNodeStateMachineTransition_3phmn")]
 
-[node name="Enemy" type="CharacterBody3D"]
+[node name="Enemy" type="CharacterBody3D" groups=["ENEMY"]]
 script = ExtResource("1_v2u0b")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
